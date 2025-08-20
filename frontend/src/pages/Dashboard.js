@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import API from "../api";
 
 function Dashboard(){
     const [balance, setBalance] = useState("0");
@@ -21,12 +22,12 @@ function Dashboard(){
         
         const fetchData = async() => {
             try{
-                const balanceRes = await axios.get("http://localhost:8080/api/v1/account/balance", {
+                const balanceRes = await API.get("/api/v1/account/balance", {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                const userRes = await axios.get("http://localhost:8080/api/v1/user/info", {
+                const userRes = await API.get("/api/v1/user/info", {
                     headers: {
                             Authorization: `Bearer ${token}`
                         }
