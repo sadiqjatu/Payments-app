@@ -4,7 +4,7 @@ import Users from "../components/Users";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../context/ToastContext"; 
+import { useToast } from "../context/ToastContext";
 
 function Dashboard(){
     const [balance, setBalance] = useState("0");
