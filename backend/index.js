@@ -1,11 +1,12 @@
 //requiring all the modules
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const rootRouter = require("./routes/index.js");
 const cors = require("cors");
 
-const dbUrl = "mongodb+srv://sadiqjatu:TtpWhe9zhQgEWfNH@cluster0.4p6bqum.mongodb.net/";
+const dbUrl = process.env.MONGODB_URI;
 async function main(){
     await mongoose.connect(dbUrl);
 }
