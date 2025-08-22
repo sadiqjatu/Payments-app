@@ -1,8 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import API from "../api";
+
 
 function SendMoney(){
     const [amount, setAmount] = useState(0);
@@ -20,7 +21,7 @@ function SendMoney(){
         setLoading(true);
         const token = localStorage.getItem("token");
         try{
-            const response = await axios.post("http://localhost:8080/api/v1/account/transfer", {
+            await API.post("/api/v1/account/transfer", {
                 amount: amount,
                 to: user._id
                 },{

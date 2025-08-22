@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';

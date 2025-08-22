@@ -4,14 +4,15 @@ import SubHeading from "../components/SubHeading";
 import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { useState } from "react";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import { useToast } from "../context/ToastContext";
 import { useEffect } from "react";
+import API from "../api";
 
 function Signin(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { showToast } = useToast();
 
@@ -23,7 +24,7 @@ function Signin(){
             showToast("User is already logged in", "success");
             navigate("/dashboard");
         }
-    });
+    }, []);
 
     return (
         <div className="h-screen bg-neutral-500 flex justify-center items-center">
@@ -37,11 +38,13 @@ function Signin(){
                     setPassword(e.target.value);
                 }} label={"Password"} type={"password"} />
                 <Button onClick={async() =>{
+                    setLoading(true);
                     try{
-                        const response = await axios.post("http://localhost:8080/api/v1/user/signin", {
+                        const response = await API.post("/api/v1/user/signin", {
                         username,
                         password
                         });
+                        setLoading(false);
                         //store token in local storage
                         localStorage.setItem("token", response.data.token);
                         //display flash message
@@ -49,10 +52,11 @@ function Signin(){
                         //navigate to the dashboard page
                         navigate("/dashboard");
                     }catch(err){
-                        console.log(err.response.data.message);
+                        // console.log(err.response.data.message);
+                        setLoading(false);
                         showToast(`${err.response?.data?.message}`, "error");
                     }
-                }} label={"Sign in"} />
+                }} label={"Sign in"} loading={loading} />
                 <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
             </div>
         </div>

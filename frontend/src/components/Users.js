@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
 import { useNavigate } from "react-router-dom";
+import API from "../api";
 
 export default function Users(){
     const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ export default function Users(){
         //filtering users
         try{
             const filterUser = async() => {
-                const response = await axios.get("http://localhost:8080/api/v1/user/bulk?filter=" + `${filter}` + `&page=${pageNum}&limit=${limit}`, {
+                const response = await API.get("/api/v1/user/bulk?filter=" + `${filter}` + `&page=${pageNum}&limit=${limit}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -65,7 +66,7 @@ function DisplayUsers({users, totalPages, pageNum, handleChange}){
                     </div>
 
                     <div>
-                        <Button onClick={(e, value) => {navigate(`/send`, { state: {user: user}})}} label={"Send Money"}/>
+                        <Button onClick={(e, value) => { navigate(`/send`, { state: {user: user}}) }} label={"Send Money"}/>
                     </div>
                 </div>
                 )
