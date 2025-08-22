@@ -19,7 +19,9 @@ main().then(()=>{
 });
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000",
+              "https://payments-app-sadiq.onrender.com"
+            ],
     credentials: true
 }));
 app.use(express.json());
